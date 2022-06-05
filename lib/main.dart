@@ -21,10 +21,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primaryColor: kPrimaryColor,
-        scaffoldBackgroundColor: kBackgroundColor,
-      ),
       home: WelcomeScreen(),
     );
   }
@@ -51,20 +47,18 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: ElevatedButton(
+      appBar: AppBar(title: Text('Home')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
                 child: Text("save"),
                 onPressed: () {
                   save();
                   print("************save****************");
                 }),
-          ),
-          Expanded(
-            flex: 2,
-            child: ElevatedButton(
+            ElevatedButton(
                 child: Text("get"),
                 onPressed: () {
                   Future<String?> userName = get();
@@ -73,45 +67,77 @@ class WelcomeScreen extends StatelessWidget {
                     print("************${userName}****************");
                   });
                 }),
-          ),
-          Expanded(
-              flex: 1,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => test2()));
-                    },
-                    child: Text(
-                      '存储',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                      ),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => test1()));
-                    },
-                    child: Text(
-                      '展示',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                      ),
-                    ),
-                  )
-                ],
-              )),
-        ],
+            ElevatedButton(
+                child: Text("showSnackBar"),
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Container(
+                        padding: EdgeInsets.all(16.0),
+                        height: 90,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: Row(children: <Widget>[
+                          SizedBox(
+                            width: 48,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'oh snap,',
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.white),
+                                ),
+                                Text(
+                                  'Flutter default snack bar isshowing',
+                                  style: TextStyle(fontSize: 12),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ])),
+                    behavior: SnackBarBehavior.floating,
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                  ));
+                }),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => test2()));
+              },
+              child: Text(
+                '存储',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 28,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => test1()));
+              },
+              child: Text(
+                '展示',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 28,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
